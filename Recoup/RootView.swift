@@ -66,6 +66,9 @@ struct SectionDestinationView: View {
 
     var body: some View {
         switch section {
+        case .time:
+            TimeListView()
+                .navigationTitle("Time")
         case .clients:
             ClientListView()
                 .navigationTitle("Clients")
