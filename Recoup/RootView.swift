@@ -36,20 +36,6 @@ enum AppSection: String, CaseIterable, Identifiable {
     }
 }
 
-/// Placeholder destination until each feature lands; replaced module by module.
-struct SectionPlaceholderView: View {
-    let section: AppSection
-
-    var body: some View {
-        ContentUnavailableView(
-            section.title,
-            systemImage: section.systemImage,
-            description: Text("Coming soon")
-        )
-        .navigationTitle(section.title)
-    }
-}
-
 struct RootView: View {
     var body: some View {
         #if os(macOS)
@@ -60,12 +46,15 @@ struct RootView: View {
     }
 }
 
-/// Resolves a section to its feature view; placeholders shrink as modules land.
+/// Resolves a section to its feature view.
 struct SectionDestinationView: View {
     let section: AppSection
 
     var body: some View {
         switch section {
+        case .dashboard:
+            DashboardView()
+                .navigationTitle("Dashboard")
         case .time:
             TimeListView()
                 .navigationTitle("Time")
@@ -84,8 +73,6 @@ struct SectionDestinationView: View {
         case .projects:
             ProjectListView()
                 .navigationTitle("Projects")
-        default:
-            SectionPlaceholderView(section: section)
         }
     }
 }

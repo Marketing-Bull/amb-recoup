@@ -6,6 +6,15 @@ Track every billable hour, mile, and dollar on client projects — and recoup it
 - **SwiftData** on-device persistence + **CloudKit** private-database sync (iPhone ↔ iPad ↔ Mac, automatic)
 - **No server.** Nothing to host, nothing to maintain.
 
+## Features
+
+- **Time** — log hours with preset chips (no keyboard), the hourly rate resolves project → client and is **locked at save**, filtered totals, CSV export
+- **Mileage** — trips with round-trip doubling, one-tap "repeat a recent trip", deductible + billable stats at the global rate (Settings, default $0.67/mi), CSV export
+- **Expenses** — amount-first entry, tappable category grid, recurring badge with annualized value, receipt photos (camera or library, compressed before save), CSV export
+- **Clients & Projects** — hourly rates with per-project overrides, archive instead of delete
+- **Dashboard** — date-range presets with six summary cards and a per-client / per-project breakdown
+- **Low-typing everywhere** — forms prefill your last-used client + project, recent-pair chips, smart defaults (date = today, time billable ON, expenses default to last category)
+
 ## One-time setup
 
 1. **Prereqs:** Xcode 16+, Homebrew, and a paid Apple Developer account (needed for CloudKit sync — see step 7 if you don't have one).
