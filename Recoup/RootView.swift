@@ -69,6 +69,12 @@ struct SectionDestinationView: View {
         case .time:
             TimeListView()
                 .navigationTitle("Time")
+        case .mileage:
+            MileageListView()
+                .navigationTitle("Mileage")
+        case .settings:
+            SettingsView()
+                .navigationTitle("Settings")
         case .clients:
             ClientListView()
                 .navigationTitle("Clients")
