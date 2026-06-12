@@ -14,9 +14,11 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.0"
     CODE_SIGN_STYLE: Automatic
-    # Apple Developer team ID (Xcode → Settings → Accounts). Swap to your
-    # Marketing Bull org team if you ship under that instead of personal.
-    DEVELOPMENT_TEAM: V9GS2JE8BP
+    # Apple Developer team that owns com.marketingbull.recoup — confirmed via the
+    # existing provisioning profile, which carries this team's iCloud container,
+    # aps-environment, and Production/Development CloudKit environments.
+    # (Not V9GS2JE8BP, which is a separate team whose cert happened to be in the keychain.)
+    DEVELOPMENT_TEAM: T47L6TGCS8
     # XcodeGen generates the Info.plist from the target's `info` block below
     # (source of truth stays in this file), so Xcode's own generation is off.
     GENERATE_INFOPLIST_FILE: NO
