@@ -11,10 +11,19 @@ extension View {
     func inlineNavigationTitle() -> some View {
         navigationBarTitleDisplayMode(.inline)
     }
+
+    /// Email keyboard with autocapitalization/correction off on iOS; no-op on macOS.
+    func emailField() -> some View {
+        keyboardType(.emailAddress)
+            .textContentType(.emailAddress)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+    }
 }
 #else
 extension View {
     func decimalKeyboard() -> some View { self }
     func inlineNavigationTitle() -> some View { self }
+    func emailField() -> some View { self }
 }
 #endif

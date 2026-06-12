@@ -60,35 +60,78 @@ struct RootView: View {
     }
 }
 
+/// Resolves a section to its feature view; placeholders shrink as modules land.
+struct SectionDestinationView: View {
+    let section: AppSection
+
+    var body: some View {
+        switch section {
+        case .clients:
+            ClientListView()
+                .navigationTitle("Clients")
+        case .projects:
+            ProjectListView()
+                .navigationTitle("Projects")
+        default:
+            SectionPlaceholderView(section: section)
+        }
+    }
+}
+
 #if os(iOS)
 struct IOSRootView: View {
     var body: some View {
         TabView {
             NavigationStack {
-                SectionPlaceholderView(section: .dashboard)
+                SectionDestinationView(section: .dashboard)
             }
             .tabItem { Label(AppSection.dashboard.title, systemImage: AppSection.dashboard.systemImage) }
 
             NavigationStack {
-                SectionPlaceholderView(section: .time)
+                SectionDestinationView(section: .time)
             }
             .tabItem { Label(AppSection.time.title, systemImage: AppSection.time.systemImage) }
 
             NavigationStack {
-                SectionPlaceholderView(section: .mileage)
+                SectionDestinationView(section: .mileage)
             }
             .tabItem { Label(AppSection.mileage.title, systemImage: AppSection.mileage.systemImage) }
 
             NavigationStack {
-                SectionPlaceholderView(section: .expenses)
+                SectionDestinationView(section: .expenses)
             }
             .tabItem { Label(AppSection.expenses.title, systemImage: AppSection.expenses.systemImage) }
 
             NavigationStack {
-                SectionPlaceholderView(section: .clients)
+                ClientsAndProjectsView()
             }
             .tabItem { Label(AppSection.clients.title, systemImage: AppSection.clients.systemImage) }
         }
+    }
+}
+
+/// Clients tab with a Clients/Projects segmented control.
+struct ClientsAndProjectsView: View {
+    @State private var showingProjects = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Picker("Section", selection: $showingProjects) {
+                Text("Clients").tag(false)
+                Text("Projects").tag(true)
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+
+            if showingProjects {
+                ProjectListView()
+            } else {
+                ClientListView()
+            }
+        }
+        .navigationTitle(showingProjects ? "Projects" : "Clients")
+        .inlineNavigationTitle()
     }
 }
 #endif
@@ -105,7 +148,7 @@ struct MacRootView: View {
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
-            SectionPlaceholderView(section: selection ?? .dashboard)
+            SectionDestinationView(section: selection ?? .dashboard)
         }
     }
 }
