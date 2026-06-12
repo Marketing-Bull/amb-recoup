@@ -9,7 +9,7 @@ options:
 settings:
   base:
     PRODUCT_BUNDLE_IDENTIFIER: com.marketingbull.recoup
-    PRODUCT_NAME: Recoup
+    PRODUCT_NAME: RecoupBull
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.0"
@@ -32,7 +32,7 @@ targets:
     info:
       path: Recoup/Support/Info.plist
       properties:
-        CFBundleDisplayName: Recoup
+        CFBundleDisplayName: RecoupBull
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.finance
