@@ -5,7 +5,7 @@
 - **Language:** Bilingual Russian / English (Russian-accented). Machine-transcribed locally (Whisper `small`).
 - **Participants:** An advisor/coach and **Sasha** (the operator being coached). A medical practice's front-office operations — referrals, scheduling, patient follow-up, billing, plus Google Ads lead quality.
 
-> ⚠️ Accuracy note: this is an automated transcript of a noisy, code-switching phone call. The English passages are reliable; the Russian passages are paraphrased and some proper nouns are best-guess (e.g. "WIF" = a call-transcription tool, "Greenbills" = their software/EHR, "DrChrono" = integrated EHR, "J Lane" = an office manager, "Workers' Comp" billing). Treat specifics as directional, not verbatim. Minutes ~13:00–18:00 are off-topic personal conversation.
+> ⚠️ Accuracy note: this is an automated transcript of a noisy, code-switching phone call. The English passages are reliable; the Russian passages are paraphrased and some proper nouns are best-guess (e.g. "Weave" (transcribed as "WIF") = a VoIP/call-transcription tool, "Greenbills" = their software/EHR, "DrChrono" = integrated EHR, "J Lane" = an office manager, "Workers' Comp" billing). Treat specifics as directional, not verbatim. Minutes ~13:00–18:00 are off-topic personal conversation.
 
 ---
 
@@ -37,7 +37,7 @@
 - [ ] **Advisor's caution to honor:** AI will take ~a year to mature and referrals always contain errors — so **fix what can be fixed manually now** and treat AI as a continuous "tweak and improve" effort, not a one-time switch.
 - [ ] Reduce **double data entry** — staff currently re-enter everything into **two systems**; design so one scan/entry feeds both.
 
-## Call recording & transcription system ("WIF" → dashboard)
+## Call recording & transcription system ("Weave" / "WIF" → dashboard)
 - [ ] **Find out the current monthly phone bill** (all lines) as a baseline before changing the phone setup.
 - [ ] Deploy **call transcription on the phone lines**; pipe transcripts into "Greenbills"/the central system.
 - [ ] Use case: when a **collector calls to collect a Workers' Comp bill**, they can see the prior call and what the first rep said, to follow up on the claim. Also valuable for the referral base.
