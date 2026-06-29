@@ -2,10 +2,10 @@
 
 - **Date processed:** 2026-06-26
 - **Source:** `Call_with_Isak_Yukhananov.m4a` (~22 min)
-- **Language:** Bilingual Russian / English (Russian-accented). Machine-transcribed locally (Whisper `small`).
+- **Language:** Bilingual Russian / English (Russian-accented). Machine-transcribed locally (Whisper `medium`).
 - **Participants:** An advisor/coach and **Sasha** (the operator being coached). A medical practice's front-office operations — referrals, scheduling, patient follow-up, billing, plus Google Ads lead quality.
 
-> ⚠️ Accuracy note: this is an automated transcript of a noisy, code-switching phone call. The English passages are reliable; the Russian passages are paraphrased and some proper nouns are best-guess (e.g. "Weave" (transcribed as "WIF") = a VoIP/call-transcription tool, "Greenbills" = their software/EHR, "DrChrono" = integrated EHR, "J Lane" = an office manager, "Workers' Comp" billing). Treat specifics as directional, not verbatim. Minutes ~13:00–18:00 are off-topic personal conversation.
+> ⚠️ Accuracy note: automated transcript of a noisy, code-switching phone call (re-run with the higher-accuracy `medium` model). English passages are reliable; Russian is much improved but still approximate in cross-talk, and some proper nouns are best-guess (e.g. "Weave" (transcribed as "WIF"/"ВИФ") = a VoIP/call-transcription tool, "Greenbills" = their software platform, "DreamBuild" = the developer/dev shop building it, "DrChrono" = integrated EHR, "J Lin" = an office manager, "Workers' Comp" billing). Treat specifics as directional, not verbatim. Minutes ~11:00–18:00 are off-topic personal conversation.
 
 ---
 
@@ -23,11 +23,12 @@
 - [ ] Create an **"Unscheduled" folder/queue in the system** so unscheduled patients automatically roll over to the next day's call list (today there is no such folder, so follow-ups get lost).
 
 ### Hiring & training
-- [ ] **Hire the right front-office person** and seat them **directly next to J Lane for a week** to learn the workflow, then train the next person the same way. Inconsistent training (one trained, one half-trained, one not trained) is the current root problem.
+- [ ] **Hire the right front-office person** and seat them **directly next to J Lin for a week** to learn the workflow, then train the next person the same way. Inconsistent training (one trained, one half-trained, one not trained) is the current root problem.
 - [ ] Provide **proper multilingual customer service** (Spanish, Russian, Georgian) — most patients only speak these languages.
 
 ### Sasha's ownership
-- [ ] **Sasha must personally do/own** the workflow above — listen in, verify whether staff are actually making calls, and run his own analysis rather than relaying instructions and walking away.
+- [ ] **Sasha must personally do/own** the workflow above — listen in, verify whether staff are actually making calls, and run his own analysis rather than relaying instructions and walking away. (The advisor pushed him to repeat the instructions back to commit them to memory.)
+- [ ] **Monitoring method:** review **call recordings**, **count calls per rep**, and track the **show/no-show report to the provider** — use this to see whether staff are actually scheduling or just sitting idle.
 - [ ] **Separate the roles clearly:** schedulers schedule; a **separate department verifies MRI against the referral**. Mixing them causes errors. Watch for schedulers burning ~7–10 min per patient (efficiency).
 
 ---
