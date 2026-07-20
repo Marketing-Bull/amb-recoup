@@ -35,8 +35,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Show selected Xcode
-        run: xcodebuild -version
+      - name: Select latest available Xcode
+        run: |
+          set -euo pipefail
+          echo "Available Xcode installations:"
+          ls -d /Applications/Xcode*.app
+
+          BEST_PATH=""
+          BEST_VERSION="0"
+          for app in /Applications/Xcode*.app; do
+            version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$app/Contents/Info.plist" 2>/dev/null || echo "0")
+            echo "  $app -> $version"
+            newest=$(printf '%s\n%s\n' "$BEST_VERSION" "$version" | sort -t. -k1,1n -k2,2n -k3,3n | tail -1)
+            if [ "$newest" = "$version" ]; then
+              BEST_VERSION="$version"
+              BEST_PATH="$app"
+            fi
+          done
+
+          if [ -z "$BEST_PATH" ]; then
+            echo "::error::No Xcode installation found under /Applications"
+            exit 1
+          fi
+
+          echo "Selecting: $BEST_PATH (version $BEST_VERSION)"
+          sudo xcode-select -switch "$BEST_PATH"
+          xcodebuild -version
+          xcodebuild -showsdks
 
       - name: Install XcodeGen
         run: brew install xcodegen
