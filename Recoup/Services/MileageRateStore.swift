@@ -8,9 +8,15 @@ enum AppSettings {
 
 /// Keeps the mileage rate in iCloud key-value storage so the setting follows the
 /// user's SwiftData records between iPhone, iPad, and Mac.
+@MainActor
 final class MileageRateStore: ObservableObject {
     @Published var mileageRate: Double {
         didSet {
+            let normalized = Self.normalized(mileageRate)
+            guard normalized == mileageRate else {
+                mileageRate = normalized
+                return
+            }
             guard mileageRate != oldValue else { return }
             persist(mileageRate)
         }
@@ -28,9 +34,9 @@ final class MileageRateStore: ObservableObject {
         self.cloudStore = cloudStore
 
         if cloudStore.object(forKey: AppSettings.mileageRateKey) != nil {
-            mileageRate = cloudStore.double(forKey: AppSettings.mileageRateKey)
+            mileageRate = Self.normalized(cloudStore.double(forKey: AppSettings.mileageRateKey))
         } else if localStore.object(forKey: AppSettings.mileageRateKey) != nil {
-            mileageRate = localStore.double(forKey: AppSettings.mileageRateKey)
+            mileageRate = Self.normalized(localStore.double(forKey: AppSettings.mileageRateKey))
         } else {
             mileageRate = AppSettings.defaultMileageRate
         }
@@ -40,7 +46,9 @@ final class MileageRateStore: ObservableObject {
             object: cloudStore,
             queue: .main
         ) { [weak self] notification in
-            self?.applyCloudChange(notification)
+            Task { @MainActor in
+                self?.applyCloudChange(notification)
+            }
         }
 
         // Pull changes made while the app was not running, then seed iCloud on
@@ -67,13 +75,26 @@ final class MileageRateStore: ObservableObject {
     private func applyCloudChange(_ notification: Notification) {
         guard
             let reason = notification.userInfo?[NSUbiquitousKeyValueStoreChangeReasonKey] as? Int,
-            reason != NSUbiquitousKeyValueStoreQuotaViolationChange,
-            cloudStore.object(forKey: AppSettings.mileageRateKey) != nil
+            reason != NSUbiquitousKeyValueStoreQuotaViolationChange
         else { return }
 
-        let cloudRate = cloudStore.double(forKey: AppSettings.mileageRateKey)
+        guard cloudStore.object(forKey: AppSettings.mileageRateKey) != nil else {
+            // A newly selected iCloud account may not have this setting yet.
+            // Seed it from the device cache rather than retaining it only locally.
+            if reason == NSUbiquitousKeyValueStoreAccountChange {
+                persist(mileageRate)
+            }
+            return
+        }
+
+        let cloudRate = Self.normalized(cloudStore.double(forKey: AppSettings.mileageRateKey))
         if mileageRate != cloudRate {
             mileageRate = cloudRate
         }
+    }
+
+    static func normalized(_ value: Double) -> Double {
+        guard value.isFinite else { return AppSettings.defaultMileageRate }
+        return min(max(value, 0), 5)
     }
 }

@@ -7,7 +7,7 @@ struct DashboardView: View {
     @Query(sort: \MileageEntry.date, order: .reverse) private var allMileageEntries: [MileageEntry]
     @Query(sort: \Client.name) private var allClients: [Client]
     @Query(sort: \Project.name) private var allProjects: [Project]
-    @StateObject private var settings = MileageRateStore()
+    @EnvironmentObject private var settings: MileageRateStore
 
     private var mileageRate: Double { settings.mileageRate }
 

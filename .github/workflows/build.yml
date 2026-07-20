@@ -22,8 +22,8 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild build \
-            -project Recoup.xcodeproj \
-            -scheme Recoup \
+            -project RecoupBull.xcodeproj \
+            -scheme RecoupBull \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=
 
@@ -31,7 +31,16 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild build \
-            -project Recoup.xcodeproj \
-            -scheme Recoup \
+            -project RecoupBull.xcodeproj \
+            -scheme RecoupBull \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=
+
+      - name: Test macOS
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project RecoupBull.xcodeproj \
+            -scheme RecoupBull \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=

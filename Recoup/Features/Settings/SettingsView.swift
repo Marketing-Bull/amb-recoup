@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var settings = MileageRateStore()
+    @EnvironmentObject private var settings: MileageRateStore
 
     var body: some View {
         Form {

@@ -4,7 +4,7 @@ import SwiftData
 struct MileageFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @StateObject private var settings = MileageRateStore()
+    @EnvironmentObject private var settings: MileageRateStore
 
     private var mileageRate: Double { settings.mileageRate }
 

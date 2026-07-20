@@ -4,7 +4,7 @@ import SwiftData
 struct MileageListView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \MileageEntry.date, order: .reverse) private var allEntries: [MileageEntry]
-    @StateObject private var settings = MileageRateStore()
+    @EnvironmentObject private var settings: MileageRateStore
 
     private var mileageRate: Double { settings.mileageRate }
     @State private var filter = EntryFilter()

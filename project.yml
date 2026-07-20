@@ -1,4 +1,4 @@
-name: Recoup
+name: RecoupBull
 options:
   bundleIdPrefix: com.marketingbull
   deploymentTarget:
@@ -26,7 +26,7 @@ settings:
     ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
 
 targets:
-  Recoup:
+  RecoupBull:
     type: application
     supportedDestinations: [iOS, macOS]
     sources:
@@ -41,7 +41,7 @@ targets:
         # Declares no non-exempt encryption — skips the export-compliance
         # prompt on every TestFlight upload.
         ITSAppUsesNonExemptEncryption: false
-        NSCameraUsageDescription: Recoup uses the camera to photograph expense receipts.
+        NSCameraUsageDescription: RecoupBull uses the camera to photograph expense receipts.
         # Empty launch screen → full-screen rendering on modern iPhones/iPads.
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
@@ -60,11 +60,31 @@ targets:
         "CODE_SIGN_ENTITLEMENTS[sdk=macosx*]": Recoup/Support/Recoup-macOS.entitlements
         "ENABLE_HARDENED_RUNTIME[sdk=macosx*]": YES
 
+  RecoupTests:
+    type: bundle.unit-test
+    supportedDestinations: [iOS, macOS]
+    sources:
+      - Tests
+    dependencies:
+      - target: RecoupBull
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        "TEST_HOST[sdk=macosx*]": "$(BUILT_PRODUCTS_DIR)/RecoupBull.app/Contents/MacOS/RecoupBull"
+        "BUNDLE_LOADER[sdk=macosx*]": "$(TEST_HOST)"
+        "TEST_HOST[sdk=iphonesimulator*]": "$(BUILT_PRODUCTS_DIR)/RecoupBull.app/RecoupBull"
+        "BUNDLE_LOADER[sdk=iphonesimulator*]": "$(TEST_HOST)"
+
 schemes:
-  Recoup:
+  RecoupBull:
     build:
       targets:
-        Recoup: all
+        RecoupBull: all
+        RecoupTests: [test]
+    test:
+      targets:
+        - RecoupTests
     run:
       config: Debug
     archive:

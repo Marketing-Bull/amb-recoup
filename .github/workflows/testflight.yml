@@ -74,8 +74,8 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild archive \
-            -project Recoup.xcodeproj \
-            -scheme Recoup \
+            -project RecoupBull.xcodeproj \
+            -scheme RecoupBull \
             -configuration Release \
             -destination 'generic/platform=iOS' \
             -archivePath "$RUNNER_TEMP/Recoup.xcarchive" \
