@@ -1,5 +1,5 @@
 import XCTest
-@testable import Recoup
+@testable import RecoupBull
 
 final class RecoupTests: XCTestCase {
     func testRateResolutionPrefersProjectOverride() {
