@@ -4,7 +4,9 @@ import SwiftData
 struct MileageFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @AppStorage(AppSettings.mileageRateKey) private var mileageRate = AppSettings.defaultMileageRate
+    @EnvironmentObject private var settings: MileageRateStore
+
+    private var mileageRate: Double { settings.mileageRate }
 
     let entry: MileageEntry?
 

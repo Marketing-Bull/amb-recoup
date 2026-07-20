@@ -35,3 +35,12 @@ jobs:
             -scheme Recoup \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=
+
+      - name: Test macOS
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project Recoup.xcodeproj \
+            -scheme Recoup \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=

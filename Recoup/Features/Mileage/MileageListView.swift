@@ -4,7 +4,9 @@ import SwiftData
 struct MileageListView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \MileageEntry.date, order: .reverse) private var allEntries: [MileageEntry]
-    @AppStorage(AppSettings.mileageRateKey) private var mileageRate = AppSettings.defaultMileageRate
+    @EnvironmentObject private var settings: MileageRateStore
+
+    private var mileageRate: Double { settings.mileageRate }
     @State private var filter = EntryFilter()
     @State private var showingNewEntry = false
     @State private var editingEntry: MileageEntry?

@@ -60,11 +60,26 @@ targets:
         "CODE_SIGN_ENTITLEMENTS[sdk=macosx*]": Recoup/Support/Recoup-macOS.entitlements
         "ENABLE_HARDENED_RUNTIME[sdk=macosx*]": YES
 
+  RecoupTests:
+    type: bundle.unit-test
+    supportedDestinations: [iOS, macOS]
+    sources:
+      - Tests
+    dependencies:
+      - target: Recoup
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+
 schemes:
   Recoup:
     build:
       targets:
         Recoup: all
+        RecoupTests: [test]
+    test:
+      targets:
+        - RecoupTests
     run:
       config: Debug
     archive:

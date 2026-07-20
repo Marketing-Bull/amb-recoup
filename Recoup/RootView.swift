@@ -156,4 +156,5 @@ struct MacRootView: View {
 #Preview {
     RootView()
         .modelContainer(PreviewSampleData.container)
+        .environmentObject(MileageRateStore())
 }

@@ -3,7 +3,7 @@
 Track every billable hour, mile, and dollar on client projects — and recoup it.
 
 - **Single SwiftUI multiplatform app** — iPhone, iPad, and Mac from one codebase (iOS 17+ / macOS 14+)
-- **SwiftData** on-device persistence + **CloudKit** private-database sync (iPhone ↔ iPad ↔ Mac, automatic)
+- **SwiftData** on-device persistence + **CloudKit** private-database sync (iPhone ↔ iPad ↔ Mac, automatic), including the shared mileage-rate setting
 - **No server.** Nothing to host, nothing to maintain.
 
 ## Features
@@ -29,11 +29,11 @@ Track every billable hour, mile, and dollar on client projects — and recoup it
    xcodegen generate
    open Recoup.xcodeproj
    ```
-6. Build & run on "My Mac" or your iPhone. The first signed device build auto-creates the CloudKit container. **Sync test:** sign two devices into the same iCloud account, add a client on one, and watch it appear on the other.
+6. Build and run on both "My Mac" and your iPhone. The first signed device build auto-creates the CloudKit container. **Sync test:** sign both devices into the same iCloud account; create a client, project, and entry on one device; confirm them on the other; then change the mileage rate and confirm that it updates there too.
 7. **No paid developer account?** In `Recoup/RecoupApp.swift`, change `cloudKitDatabase: .automatic` to `.none` — the app becomes fully local and everything else works.
 
 ## Rules of the road
 
 - **Never edit project settings inside Xcode.** The `.xcodeproj` is generated and gitignored — regeneration discards in-Xcode changes. Edit `project.yml` and re-run `xcodegen generate`.
 - New Swift files under `Recoup/` are picked up automatically on the next `xcodegen generate`.
-- CI builds both the iOS Simulator and macOS destinations (signing disabled) on every push.
+- CI builds both the iOS Simulator and macOS destinations and runs the unit tests on macOS (signing disabled) on every push.

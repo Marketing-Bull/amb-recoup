@@ -3,35 +3,73 @@ import SwiftData
 
 @main
 struct RecoupApp: App {
-    let container: ModelContainer
-
-    init() {
-        let schema = Schema([
-            Client.self,
-            Project.self,
-            TimeEntry.self,
-            Expense.self,
-            MileageEntry.self,
-        ])
-        do {
-            let cloudConfig = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
-            container = try ModelContainer(for: schema, configurations: [cloudConfig])
-        } catch {
-            // iCloud unavailable (no account, no entitlement, signing disabled) —
-            // fall back to a local-only store so the app always launches.
-            do {
-                let localConfig = ModelConfiguration(schema: schema, cloudKitDatabase: .none)
-                container = try ModelContainer(for: schema, configurations: [localConfig])
-            } catch {
-                fatalError("Could not create ModelContainer: \(error)")
-            }
-        }
-    }
+    @StateObject private var persistence = PersistenceController()
+    @StateObject private var settings = MileageRateStore()
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            if let container = persistence.container {
+                RootView()
+                    .modelContainer(container)
+                    .environmentObject(settings)
+            } else {
+                PersistenceErrorView(
+                    message: persistence.errorMessage,
+                    retry: persistence.load
+                )
+            }
         }
-        .modelContainer(container)
+    }
+}
+
+@MainActor
+final class PersistenceController: ObservableObject {
+    @Published private(set) var container: ModelContainer?
+    @Published private(set) var errorMessage: String?
+
+    init() {
+        load()
+    }
+
+    func load() {
+        errorMessage = nil
+        do {
+            let schema = Schema([
+                Client.self,
+                Project.self,
+                TimeEntry.self,
+                Expense.self,
+                MileageEntry.self,
+            ])
+            let configuration = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
+            container = try ModelContainer(for: schema, configurations: [configuration])
+        } catch {
+            // Never substitute a different local store: that would allow edits
+            // which look successful but cannot reach the user's other devices.
+            container = nil
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+
+private struct PersistenceErrorView: View {
+    let message: String?
+    let retry: () -> Void
+
+    var body: some View {
+        ContentUnavailableView {
+            Label("Unable to Open Recoup", systemImage: "icloud.slash")
+        } description: {
+            Text("Recoup couldn't open its synchronized database. Check iCloud and your network connection, then try again.")
+            if let message {
+                Text(message)
+                    .font(.caption)
+                    .textSelection(.enabled)
+            }
+        } actions: {
+            Button("Try Again", action: retry)
+                .buttonStyle(.borderedProminent)
+        }
+        .padding()
     }
 }

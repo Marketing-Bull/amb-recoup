@@ -13,8 +13,8 @@
 	<key>NSPrivacyAccessedAPITypes</key>
 	<array>
 		<dict>
-			<!-- @AppStorage for the mileage rate. CA92.1 = access info stored by
-			     this app, accessible only to this app. -->
+			<!-- UserDefaults caches the mileage rate locally. CA92.1 = access info
+			     stored by this app, accessible only to this app. -->
 			<key>NSPrivacyAccessedAPIType</key>
 			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
 			<key>NSPrivacyAccessedAPITypeReasons</key>
