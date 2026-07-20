@@ -3,7 +3,7 @@
 Track every billable hour, mile, and dollar on client projects — and recoup it.
 
 - **Single SwiftUI multiplatform app** — iPhone, iPad, and Mac from one codebase (iOS 17+ / macOS 14+)
-- **SwiftData** on-device persistence + **CloudKit** private-database sync (iPhone ↔ iPad ↔ Mac, automatic)
+- **SwiftData** on-device persistence + **CloudKit** private-database sync (iPhone ↔ iPad ↔ Mac, automatic), including the shared mileage-rate setting
 - **No server.** Nothing to host, nothing to maintain.
 
 ## Features

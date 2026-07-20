@@ -17,14 +17,11 @@ struct RecoupApp: App {
             let cloudConfig = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
             container = try ModelContainer(for: schema, configurations: [cloudConfig])
         } catch {
-            // iCloud unavailable (no account, no entitlement, signing disabled) —
-            // fall back to a local-only store so the app always launches.
-            do {
-                let localConfig = ModelConfiguration(schema: schema, cloudKitDatabase: .none)
-                container = try ModelContainer(for: schema, configurations: [localConfig])
-            } catch {
-                fatalError("Could not create ModelContainer: \(error)")
-            }
+            // Do not silently open a separate local-only configuration here. A
+            // fallback store can make successful edits appear to sync while they
+            // are actually stranded on one device. The automatic configuration
+            // already supports offline use and uploads when iCloud is available.
+            fatalError("Could not create the CloudKit-backed ModelContainer: \(error)")
         }
     }
 
