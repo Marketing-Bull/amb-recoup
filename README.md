@@ -27,7 +27,7 @@ Track every billable hour, mile, and dollar on client projects — and recoup it
 5. Generate and open the project:
    ```sh
    xcodegen generate
-   open Recoup.xcodeproj
+   open RecoupBull.xcodeproj
    ```
 6. Build and run on both "My Mac" and your iPhone. The first signed device build auto-creates the CloudKit container. **Sync test:** sign both devices into the same iCloud account; create a client, project, and entry on one device; confirm them on the other; then change the mileage rate and confirm that it updates there too.
 7. **No paid developer account?** In `Recoup/RecoupApp.swift`, change `cloudKitDatabase: .automatic` to `.none` — the app becomes fully local and everything else works.
