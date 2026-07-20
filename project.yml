@@ -70,6 +70,10 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        "TEST_HOST[sdk=macosx*]": "$(BUILT_PRODUCTS_DIR)/RecoupBull.app/Contents/MacOS/RecoupBull"
+        "BUNDLE_LOADER[sdk=macosx*]": "$(TEST_HOST)"
+        "TEST_HOST[sdk=iphonesimulator*]": "$(BUILT_PRODUCTS_DIR)/RecoupBull.app/RecoupBull"
+        "BUNDLE_LOADER[sdk=iphonesimulator*]": "$(TEST_HOST)"
 
 schemes:
   Recoup:
