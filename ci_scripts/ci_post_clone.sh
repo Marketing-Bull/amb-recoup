@@ -7,7 +7,9 @@
 # Xcode Cloud to build. Generate it here.
 set -e
 
-brew install xcodegen
+if ! command -v xcodegen >/dev/null 2>&1; then
+  HOMEBREW_NO_AUTO_UPDATE=1 brew install xcodegen
+fi
 
-cd "$CI_PRIMARY_REPOSITORY_PATH"
+cd "${CI_PRIMARY_REPOSITORY_PATH:-..}"
 xcodegen generate
