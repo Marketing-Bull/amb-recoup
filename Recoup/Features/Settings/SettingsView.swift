@@ -6,6 +6,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var context
 
     @State private var showingDeleteConfirmation = false
+    @State private var deleteErrorMessage: String?
 
     var body: some View {
         Form {
@@ -65,14 +66,32 @@ struct SettingsView: View {
         } message: {
             Text("This permanently deletes every client, project, time entry, mileage trip, and expense. This can't be undone.")
         }
+        .alert(
+            "Couldn't Delete All Data",
+            isPresented: Binding(
+                get: { deleteErrorMessage != nil },
+                set: { if !$0 { deleteErrorMessage = nil } }
+            )
+        ) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(deleteErrorMessage ?? "")
+        }
     }
 
+    /// Stops at the first failure and skips the final save, so a partial
+    /// failure never persists a half-deleted database — either everything
+    /// is removed, or nothing is.
     private func deleteAllData() {
-        try? context.delete(model: TimeEntry.self)
-        try? context.delete(model: Expense.self)
-        try? context.delete(model: MileageEntry.self)
-        try? context.delete(model: Project.self)
-        try? context.delete(model: Client.self)
-        try? context.save()
+        do {
+            try context.delete(model: TimeEntry.self)
+            try context.delete(model: Expense.self)
+            try context.delete(model: MileageEntry.self)
+            try context.delete(model: Project.self)
+            try context.delete(model: Client.self)
+            try context.save()
+        } catch {
+            deleteErrorMessage = error.localizedDescription
+        }
     }
 }
