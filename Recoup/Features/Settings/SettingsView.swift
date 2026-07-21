@@ -37,6 +37,7 @@ struct SettingsView: View {
                     Spacer()
                     Button("Insert Sample") {
                         SampleData.insert(into: context)
+                        try? context.save()
                     }
                     .buttonStyle(.bordered)
                     .controlSize(.small)
@@ -72,5 +73,6 @@ struct SettingsView: View {
         try? context.delete(model: MileageEntry.self)
         try? context.delete(model: Project.self)
         try? context.delete(model: Client.self)
+        try? context.save()
     }
 }
