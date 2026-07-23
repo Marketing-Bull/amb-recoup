@@ -61,9 +61,7 @@ struct SettingsView: View {
                 }
 
                 ShareLink(items: csvExportFiles) { file in
-                    // Filename is dynamic (model + date), not a localization key;
-                    // wrap in LocalizedStringResource so SwiftUI renders it verbatim.
-                    SharePreview(LocalizedStringResource(stringLiteral: file.filename), image: Image(systemName: "tablecells"))
+                    SharePreview(file.filename, image: Image(systemName: "tablecells"))
                 } label: {
                     Label("Export to CSV", systemImage: "square.and.arrow.up")
                 }
