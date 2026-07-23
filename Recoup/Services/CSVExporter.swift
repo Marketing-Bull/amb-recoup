@@ -88,4 +88,35 @@ extension CSVExporter {
             ]
         }
     }
+
+    static let clientHeader = ["name", "contact_name", "contact_email", "contact_phone", "hourly_rate", "archived", "notes"]
+
+    static func clientRows(_ clients: [Client]) -> [[String]] {
+        clients.map { client in
+            [
+                client.name,
+                client.contactName,
+                client.contactEmail,
+                client.contactPhone,
+                client.hourlyRate.map(Formatters.plainDecimal) ?? "",
+                client.isArchived ? "true" : "false",
+                client.notes,
+            ]
+        }
+    }
+
+    static let projectHeader = ["name", "client", "status", "hourly_rate_override", "archived", "notes"]
+
+    static func projectRows(_ projects: [Project]) -> [[String]] {
+        projects.map { project in
+            [
+                project.name,
+                project.client?.name ?? "",
+                project.status.rawValue,
+                project.hourlyRateOverride.map(Formatters.plainDecimal) ?? "",
+                project.isArchived ? "true" : "false",
+                project.notes,
+            ]
+        }
+    }
 }
