@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 
-/// Sample rows shared by Xcode previews and the Settings "Insert Sample" action.
+/// Sample rows shared by Xcode previews and the Settings "Import Sample Data" action.
 enum SampleData {
     @MainActor
     static func insert(into context: ModelContext) {
