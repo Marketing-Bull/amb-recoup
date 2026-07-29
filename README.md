@@ -13,6 +13,7 @@ Track every billable hour, mile, and dollar on client projects — and recoup it
 - **Expenses** — amount-first entry, tappable category grid, recurring badge with annualized value, receipt photos (camera or library, compressed before save), CSV export
 - **Clients & Projects** — hourly rates with per-project overrides, archive instead of delete
 - **Dashboard** — date-range presets with six summary cards and a per-client / per-project breakdown
+- **Settings** — mileage rate, import sample data to try the app, export a full CSV backup of everything, reset all data
 - **Low-typing everywhere** — forms prefill your last-used client + project, recent-pair chips, smart defaults (date = today, time billable ON, expenses default to last category)
 
 ## One-time setup
