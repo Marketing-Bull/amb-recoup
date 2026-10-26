@@ -38,3 +38,7 @@ Track every billable hour, mile, and dollar on client projects — and recoup it
 - **Never edit project settings inside Xcode.** The `.xcodeproj` is generated and gitignored — regeneration discards in-Xcode changes. Edit `project.yml` and re-run `xcodegen generate`.
 - New Swift files under `Recoup/` are picked up automatically on the next `xcodegen generate`.
 - CI builds both the iOS Simulator and macOS destinations and runs the unit tests on macOS (signing disabled) on every push.
+
+## License
+
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Marketing Bull, LLC. All rights reserved.
